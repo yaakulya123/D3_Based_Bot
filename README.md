@@ -6,7 +6,7 @@
 
 ## 🤖 Project Overview
 
-**PathwayPal** is a cutting-edge academic advising system that simulates a futuristic STEM career counselor at the fictional "Doom's University" in the year 2099. This immersive, cyberpunk-themed web application features an AI-powered conversational interface that guides students through their academic pathways with real-time data visualization and personalized recommendations.
+**PathwayPal** is an immersive web application that simulates a futuristic academic counselor set in the year 2099 at the fictional "Doom's University." The project integrates GPT API for intelligent conversations with fallback systems using RiveScript for a consistently harsh, demanding AI personality. I leveraged Chart.js for complex data visualizations including radar charts and animated bar graphs, while implementing p5.js for particle systems and holographic effects. The application features a responsive dashboard with real-time highlighting using custom CSS animations and GSAP for smooth transitions. Speech synthesis capabilities were enhanced with a custom Chrome timeout workaround, ensuring uninterrupted dialogue delivery. This project demonstrates advanced front-end techniques while creating an engaging cyberpunk academic environment.
 
 > "The most demanding institution in the solar system."
 
