@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PathwayPal: Doom's University STEM Counselor (2099)</title>
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/addons/p5.sound.min.js"></script>
+    <script src="https://unpkg.com/rivescript@latest/dist/rivescript.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    
+    <!-- Icons -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <!-- Holographic Grid Background -->
+    <div class="grid-background"></div>
+    
+    <!-- Particle System Canvas -->
+    <canvas id="particleCanvas"></canvas>
+    
+    <!-- Main Canvas for p5.js -->
+    <main></main>
+    
+    <!-- Top Navigation Bar -->
+    <div id="top-nav">
+      <div class="nav-brand">
+        <i class="fas fa-robot"></i>
+        <span>PATHWAY PAL | DOOM'S UNIVERSITY</span>
+      </div>
+      <div class="academic-year">
+        <span>ACADEMIC YEAR: 2099-2100</span>
+      </div>
+      <div class="nav-actions">
+        <div class="nav-action"><i class="fas fa-user-circle"></i> Student Portal</div>
+        <div class="nav-action"><i class="fas fa-brain"></i> Neural Link</div>
+        <div class="nav-action"><i class="fas fa-cog"></i> Settings</div>
+        <div class="nav-action"><i class="fas fa-sign-out-alt"></i> Exit</div>
+      </div>
+    </div>
+    
+    <!-- App Container for Layout -->
+    <div id="app-container">
+      <!-- Left Side Panels -->
+      <div id="left-panels">
+        <!-- Department Metrics Panel -->
+        <div id="departments-panel" class="dashboard-panel">
+          <h3><i class="fas fa-microscope"></i> DEPARTMENT ANALYTICS</h3>
+          <div class="panel-content">
+            <canvas id="departmentsChart"></canvas>
+          </div>
+        </div>
+        
+        <!-- Career Trajectory Panel -->
+        <div id="career-panel" class="dashboard-panel">
+          <h3><i class="fas fa-route"></i> CAREER TRAJECTORIES</h3>
+          <div class="panel-content">
+            <canvas id="trajectoryChart"></canvas>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Central Chat Container -->
+      <div id="chat-container">
+        <header>
+          <i class="fas fa-robot"></i>
+          <h1>PathwayPal: Doom's University STEM Counselor</h1>
+          <div class="status-indicator"></div>
+        </header>
+        <div id="output"></div>
+        <div id="input-container">
+          <input type="text" id="userInput" placeholder="Ask me about your academic pathway..." />
+          <button id="sendButton">
+            <i class="fas fa-paper-plane"></i> Send
+          </button>
+        </div>
+      </div>
+      
+      <!-- Right Side Panels -->
+      <div id="right-panels">
+        <!-- Course Recommendations Panel -->
+        <div id="courses-panel" class="dashboard-panel">
+          <h3><i class="fas fa-graduation-cap"></i> RECOMMENDED COURSES</h3>
+          <div class="notification-counter">5</div>
+          <div class="course-list">
+            <div class="course-item">
+              <div class="course-name">Quantum Neural Networks</div>
+              <div class="course-stats">
+                <span class="course-stat">
+                  <i class="fas fa-user-graduate"></i> Prof. Nova
+                </span>
+                <span class="course-stat">
+                  <i class="fas fa-star"></i> 4.9
+                </span>
+              </div>
+              <div class="course-badge">98% Match</div>
+            </div>
+            
+            <div class="course-item">
+              <div class="course-name">Advanced Biohacking</div>
+              <div class="course-stats">
+                <span class="course-stat">
+                  <i class="fas fa-user-graduate"></i> Dr. Synth
+                </span>
+                <span class="course-stat">
+                  <i class="fas fa-star"></i> 4.7
+                </span>
+              </div>
+              <div class="course-badge">95% Match</div>
+            </div>
+            
+            <div class="course-item">
+              <div class="course-name">Nanobot Engineering</div>
+              <div class="course-stats">
+                <span class="course-stat">
+                  <i class="fas fa-user-graduate"></i> Prof. Vex
+                </span>
+                <span class="course-stat">
+                  <i class="fas fa-star"></i> 4.5
+                </span>
+              </div>
+              <div class="course-badge">92% Match</div>
+            </div>
+            
+            <div class="course-item">
+              <div class="course-name">AI Infrastructure Security</div>
+              <div class="course-stats">
+                <span class="course-stat">
+                  <i class="fas fa-user-graduate"></i> Dr. Circuit
+                </span>
+                <span class="course-stat">
+                  <i class="fas fa-star"></i> 4.6
+                </span>
+              </div>
+              <div class="course-badge">90% Match</div>
+            </div>
+            
+            <div class="course-item">
+              <div class="course-name">Exoplanet Terraforming</div>
+              <div class="course-stats">
+                <span class="course-stat">
+                  <i class="fas fa-user-graduate"></i> Dr. Cosmos
+                </span>
+                <span class="course-stat">
+                  <i class="fas fa-star"></i> 4.8
+                </span>
+              </div>
+              <div class="course-badge">88% Match</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Campus Events Panel -->
+        <div id="events-panel" class="dashboard-panel">
+          <h3><i class="fas fa-calendar-alt"></i> UPCOMING EVENTS</h3>
+          <div class="notification-counter">3</div>
+          <div class="event-list">
+            <div class="event-item">
+              <div class="event-date">MAR 15</div>
+              <div class="event-details">
+                <div class="event-name">Lunar Hackathon 2099</div>
+                <div class="event-location">Antimatter Lab | 14:00</div>
+              </div>
+              <div class="event-badge">HOT</div>
+            </div>
+            
+            <div class="event-item">
+              <div class="event-date">MAR 20</div>
+              <div class="event-details">
+                <div class="event-name">Quantum Job Fair</div>
+                <div class="event-location">Holodeck 7 | 10:00</div>
+              </div>
+              <div class="event-badge">NEW</div>
+            </div>
+            
+            <div class="event-item">
+              <div class="event-date">MAR 25</div>
+              <div class="event-details">
+                <div class="event-name">AI Ethics Symposium</div>
+                <div class="event-location">Neural Hub | 09:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bottom Visualization Panel -->
+    <div id="bottom-panel" class="dashboard-panel">
+      <div id="bottom-viz">
+        <div id="skill-hexagons" class="bottom-viz-section">
+          <h4><i class="fas fa-network-wired"></i> STEM SKILL ECOSYSTEM</h4>
+          <div class="hexagon-grid" id="hexagon-grid"></div>
+        </div>
+        <div id="research-trends" class="bottom-viz-section">
+          <h4><i class="fas fa-chart-line"></i> RESEARCH TREND ANALYSIS</h4>
+          <div class="panel-content">
+            <canvas id="researchTrendsChart"></canvas>
+          </div>
+        </div>
+        <div id="career-stats" class="bottom-viz-section">
+          <h4><i class="fas fa-briefcase"></i> CAREER PLACEMENT</h4>
+          <div class="panel-content">
+            <canvas id="careerPlacementChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- System Stats Bar -->
+    <div id="system-stats">
+      <div class="stat-item">
+        <i class="fas fa-server"></i>
+        <span>QUANTUM CORE: ONLINE</span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-database"></i>
+        <span>NEURAL DB: LINKED</span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-clock"></i>
+        <span id="current-time">12:45:30</span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-satellite"></i>
+        <span>ORBITAL SYNC: ACTIVE</span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-shield-alt"></i>
+        <span>SECURITY: MAXIMUM</span>
+      </div>
+    </div>
+
+    <!-- Futuristic Cursor -->
+    <div id="custom-cursor"></div>
+    
+    <!-- Notification Toast System -->
+    <div id="notification-container"></div>
+    
+    <!-- Scripts - Updated order -->
+    <script src="gpt-integration.js"></script>
+    <script src="sketch.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>
